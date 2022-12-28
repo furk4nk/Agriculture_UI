@@ -1,0 +1,55 @@
+﻿@using EntityLayer.Concrete
+@model List<Image>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Görüntü Listesi</h4>
+            <div class="table-responsive pt-3">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Görüntü Adı</th>
+                            <th>Açıklama</th>
+                            <th>Sil</th>
+                            <th>Düzenle</th>
+                            <th>Görsel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count == 0)
+                        {
+                            <tr>
+                                <td>Görüntü Bulunamadı</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.ImageID</td>
+                                    <td>@item.title</td>
+                                    <td>@item.Description</td>
+                                    <td><a href="/Image/DeleteImage/@item.ImageID" class="btn btn-outline-danger">Sil</a></td>
+                                    <td><a href="/Image/EditImage/@item.ImageID" class="btn btn-outline-success">Güncelle</a></td>
+                                    <td><a href="@item.ImageUrl"><img src="@item.ImageUrl" alt="image" /></a></td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <br />
+            <a href="/Image/AddImage/" class="btn btn-success">Yeni Görsel ekle</a>
+        </div>
+    </div>
+</div>
+
+

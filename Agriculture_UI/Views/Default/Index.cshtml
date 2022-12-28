@@ -1,0 +1,58 @@
+﻿@{
+	Layout = null;
+}
+
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+	@await Component.InvokeAsync("_HeadPartial")
+<body lang="tr">
+
+	<div class="header">
+		<div class="container">
+			@await Component.InvokeAsync("_TopAddressPartial")
+			@await Component.InvokeAsync("_SocialMediaPartial")			
+		</div>
+	</div>
+
+	
+	<div class="slider">
+		@await Component.InvokeAsync("_NavbarPartial")
+		@await Component.InvokeAsync("_SlidePartial")
+		
+	</div>
+	
+	
+
+	@await Component.InvokeAsync("_AboutPartial")
+
+	@await Component.InvokeAsync("_ServicePartial")
+
+	@await Component.InvokeAsync("_TeamPartial")
+
+	@await Component.InvokeAsync("_AnnouncementPartial") 
+
+	@await Component.InvokeAsync("_GalleryPartial")
+
+	<!--footer-->
+	<div class="contact-agile" id="contact">
+		<div class="container">
+		@await Component.InvokeAsync("_AddressPartial")
+			@await Html.PartialAsync("/Views/Default/SendMessage.cshtml")
+		</div>
+	</div>
+	@await Component.InvokeAsync("_MapPartial")
+	
+	@await Component.InvokeAsync("_FooterPartial")
+	<!--/footer -->
+	<!-- js -->
+
+	@await Component.InvokeAsync("_ScriptPartial")
+</body>
+</html>

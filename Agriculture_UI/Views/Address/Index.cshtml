@@ -1,0 +1,52 @@
+﻿@using EntityLayer.Concrete
+@model List<Address>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">İletişim adresi</h4>
+            <div class="table-responsive pt-3">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Açıklama1</th>
+                            <th>Açıklama2</th>
+                            <th>Açıklama3</th>
+                            <th>Telefon numarası</th>                         
+                            <th>Düzenle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count == 0)
+                        {
+                            <tr>
+                                <td>Adres Bulunamadı</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.AddressID</td>
+                                    <td>@item.Description1</td>
+                                    <td>@item.Description2</td>
+                                    <td>@item.Description3</td>
+                                    <td>@item.PhoneNumber</td>
+                                    <td><a href="/Address/EditAddress/@item.AddressID" class="btn btn-outline-success">Güncelle</a></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

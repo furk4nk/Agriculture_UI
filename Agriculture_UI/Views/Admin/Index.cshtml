@@ -1,0 +1,51 @@
+﻿@using EntityLayer.Concrete
+@model AppUser
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Profil Güncelleme sayfası</h4>
+            <form class="forms-sample" method="post">
+
+                <div class="form-group">
+                    <label for="exampleInputName1">Kullanıcı Adı</label>  <br />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="UserName">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName1">Ad Soyad</label>  <br />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="FullName">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName1">Email</label>  <br />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="Email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName1">Telefon numarası</label>  <br />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="PhoneNumber">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName1">Adres</label>  <br />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="Address">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName1">Doğum tarihi</label>  <br />
+                    <span asp-validation-for="BirthDate" class="text-danger"></span>
+                    <input type="date" class="form-control" asp-for="BirthDate">
+                </div>
+                <a class="btn btn-outline-primary" href="#">Şifre Güncelle</a>
+                <button class="btn btn-outline-info">Güncelle</button>
+            </form>
+            <a href="/Login/AddUser/" class="btn btn-success">Kullanıcı Ekle</a>
+        </div>
+    </div>
+</div>
+
