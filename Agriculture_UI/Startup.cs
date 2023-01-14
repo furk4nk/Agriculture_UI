@@ -1,9 +1,13 @@
+using Agriculture_UI.Models;
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
+using BusinessLayer.FluentValidation;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using FluentValidation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,7 +37,7 @@ namespace Agriculture_UI
         public void ConfigureServices(IServiceCollection services)
         {
             #region 
-            services.AddScoped<ITeamService,TeamManager>();
+            services.AddScoped<ITeamService, TeamManager>();
             services.AddScoped<ITeamDal, EfTeamDal>();
 
             services.AddScoped<IService, ServiceManager>();
@@ -42,31 +46,35 @@ namespace Agriculture_UI
             services.AddScoped<IAnnouncementService, AnnouncementManager>();
             services.AddScoped<IAnnouncementDal, EfAnnouncementDal>();
 
-            services.AddScoped<IImageService,ImageManager>();
-            services.AddScoped<IImageDal,EfImageDal>();
+            services.AddScoped<IImageService, ImageManager>();
+            services.AddScoped<IImageDal, EfImageDal>();
 
-            services.AddScoped<IAddressService,AddressManager>();
-            services.AddScoped<IAddressDal,EfAddressDal>();
+            services.AddScoped<IAddressService, AddressManager>();
+            services.AddScoped<IAddressDal, EfAddressDal>();
 
             services.AddScoped<IContactService, ContactManager>();
-            services.AddScoped<IContactDal,EfContactDal>();
+            services.AddScoped<IContactDal, EfContactDal>();
 
-			services.AddScoped<ISocialMediaService, SocialMediaManager>();
-			services.AddScoped<ISocialMediaDal, EfSocialMediaDal>();
+            services.AddScoped<ISocialMediaService, SocialMediaManager>();
+            services.AddScoped<ISocialMediaDal, EfSocialMediaDal>();
 
-			services.AddScoped<IAboutUsService, AboutUsManager>();
-			services.AddScoped<IAboutUsDal, EfAboutUsDal>();
+            services.AddScoped<IAboutUsService, AboutUsManager>();
+            services.AddScoped<IAboutUsDal, EfAboutUsDal>();
 
             services.AddScoped<ICategoryService, CategoryManager>();
             services.AddScoped<ICategoryDal, EfCategoryDal>();
 
-            services.AddScoped<IProductService,ProductManager>();
+            services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<IProductDal, EfProductDal>();
 
             #endregion
 
             services.AddDbContext<Context>();
-            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>();
+            services.AddIdentity<AppUser, AppRole>().
+                AddEntityFrameworkStores<Context>().
+                AddErrorDescriber<CustomErrorDescriber>();
+
+            //services.AddSingleton<IValidator<AppUser>, UserValidator>();
 
             services.AddControllersWithViews();
 
@@ -77,11 +85,21 @@ namespace Agriculture_UI
                 .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
-            services.ConfigureApplicationCookie(option =>
-            {
-                option.LoginPath =new Microsoft.AspNetCore.Http.PathString("/Login/Index");
-                option.LogoutPath =new Microsoft.AspNetCore.Http.PathString("/Login/logOut");
-            });
+            //services.ConfigureApplicationCookie(option =>
+            //{
+            //    option.LoginPath =new Microsoft.AspNetCore.Http.PathString("/Login/Index");
+            //    option.LogoutPath =new Microsoft.AspNetCore.Http.PathString("/Login/logOut");
+            //});
+            services.AddAuthentication(
+                CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(x =>
+                {
+                    x.LoginPath = "/Login/Index/";
+                    x.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                    x.LogoutPath = "/Login/LogOut/";
+                });
+
+
 
 
         }

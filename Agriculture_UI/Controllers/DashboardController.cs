@@ -5,12 +5,18 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Agriculture_UI.Controllers
 {
     public class DashboardController : Controller
     {
-        Context c = new Context();
+        private readonly Context c = new Context();
+
+        public DashboardController(Context c)
+        {
+            this.c = c;
+        }
 
         public IActionResult Index()
         {

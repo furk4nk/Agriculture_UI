@@ -1,7 +1,6 @@
-﻿@using EntityLayer.Concrete
-@model AppUser
+﻿@model Agriculture_UI.Models.UserEditViewModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "UserEdit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -9,7 +8,7 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Profil Güncelleme sayfası</h4>
-            <form class="forms-sample" method="post">
+            <form class="forms-sample" method="post" asp-action="UserEdit" asp-controller="User">
 
                 <div class="form-group">
                     <label for="exampleInputName1">Kullanıcı Adı</label>  <br />
@@ -37,14 +36,19 @@
                     <input type="text" class="form-control" asp-for="Address">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputName1">Doğum tarihi</label>  <br />
-                    <span asp-validation-for="BirthDate" class="text-danger"></span>
-                    <input type="date" class="form-control" asp-for="BirthDate">
+                    <label for="exampleInputName1">Cinsiyet</label>  <br />
+                    <span asp-validation-for="GenderID" class="text-danger"></span>
+                    @Html.DropDownListFor(x=>x.GenderID,(List<SelectListItem>)ViewBag.values,new{@class="form-control"})
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputName1">Doğum tarihi</label>  <br />
+                    <span asp-validation-for="BirthDay" class="text-danger"></span>
+                    <input type="date" class="form-control" asp-for="BirthDay">
+                </div> </br>
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                <button type="submit" class="btn btn-outline-info">Güncelle</button>
                 <a class="btn btn-outline-primary" href="#">Şifre Güncelle</a>
-                <button class="btn btn-outline-info">Güncelle</button>
             </form>
-            <a href="/Login/AddUser/" class="btn btn-success">Kullanıcı Ekle</a>
         </div>
     </div>
 </div>

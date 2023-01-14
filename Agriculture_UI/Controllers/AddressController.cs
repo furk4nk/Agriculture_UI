@@ -75,7 +75,6 @@ namespace Agriculture_UI.Controllers
                 }
                 return View();
             }
-
         }
     }
 }

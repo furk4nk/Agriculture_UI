@@ -28,7 +28,7 @@ namespace Agriculture_UI.Controllers
 			var result = await _signInManager.PasswordSignInAsync(loginViewModel.UserName,loginViewModel.Password,true,false);
 			if (result.Succeeded)
 			{
-                return RedirectToAction("Index", "Address");
+                return RedirectToAction("Index", "Dashboard");
             }
 			else
 			{
@@ -36,9 +36,10 @@ namespace Agriculture_UI.Controllers
 			}
 		}
 
+		[Authorize]
 		public async Task<IActionResult> LogOut()
 		{
-			_signInManager.SignOutAsync();
+			await _signInManager.SignOutAsync();
 			return RedirectToAction("Index","Login");
 		}
 
