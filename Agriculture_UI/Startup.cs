@@ -1,6 +1,7 @@
 using Agriculture_UI.Models;
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
+using BusinessLayer.Container;
 using BusinessLayer.FluentValidation;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
@@ -36,38 +37,6 @@ namespace Agriculture_UI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            #region 
-            services.AddScoped<ITeamService, TeamManager>();
-            services.AddScoped<ITeamDal, EfTeamDal>();
-
-            services.AddScoped<IService, ServiceManager>();
-            services.AddScoped<IServiceDal, EfServiceDal>();
-
-            services.AddScoped<IAnnouncementService, AnnouncementManager>();
-            services.AddScoped<IAnnouncementDal, EfAnnouncementDal>();
-
-            services.AddScoped<IImageService, ImageManager>();
-            services.AddScoped<IImageDal, EfImageDal>();
-
-            services.AddScoped<IAddressService, AddressManager>();
-            services.AddScoped<IAddressDal, EfAddressDal>();
-
-            services.AddScoped<IContactService, ContactManager>();
-            services.AddScoped<IContactDal, EfContactDal>();
-
-            services.AddScoped<ISocialMediaService, SocialMediaManager>();
-            services.AddScoped<ISocialMediaDal, EfSocialMediaDal>();
-
-            services.AddScoped<IAboutUsService, AboutUsManager>();
-            services.AddScoped<IAboutUsDal, EfAboutUsDal>();
-
-            services.AddScoped<ICategoryService, CategoryManager>();
-            services.AddScoped<ICategoryDal, EfCategoryDal>();
-
-            services.AddScoped<IProductService, ProductManager>();
-            services.AddScoped<IProductDal, EfProductDal>();
-
-            #endregion
 
             services.AddDbContext<Context>();
             services.AddIdentity<AppUser, AppRole>().
@@ -76,7 +45,11 @@ namespace Agriculture_UI
 
             //services.AddSingleton<IValidator<AppUser>, UserValidator>();
 
+            services.ContainerDependencies();
+
             services.AddControllersWithViews();
+
+
 
             services.AddMvc(config =>
             {
